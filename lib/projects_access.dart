@@ -18,9 +18,7 @@ class ProjectsPage extends StatelessWidget {
           itemBuilder: (context,index){
         return  GestureDetector(
           onTap: (){
-           for (var element in projects) {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>element));
-           }
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>projects[index]));
           },
           child: Card(
             elevation: 5,
