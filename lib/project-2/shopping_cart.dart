@@ -18,10 +18,12 @@ class ShoppingCart extends StatelessWidget {
         itemCount: cart.items.length,
         itemBuilder: (ctx, index) {
           final cartItem = cart.items.values.toList()[index];
-          return ListTile(
-            title: Text(cartItem.product.title),
-            subtitle: Text('Quantity: ${cartItem.quantity}'),
-            trailing: Text('\$${(cartItem.product.price * cartItem.quantity).toStringAsFixed(2)}'),
+          return Card(
+            child: ListTile(
+              title: Text(cartItem.product.title),
+              subtitle: Text('Quantity: ${cartItem.quantity}'),
+              trailing: Text('\$${(cartItem.product.price * cartItem.quantity).toStringAsFixed(2)}'),
+            ),
           );
         },
       ),

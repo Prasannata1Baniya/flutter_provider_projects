@@ -32,4 +32,10 @@ class StopwatchProvider with ChangeNotifier {
     _timer?.cancel();
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 }

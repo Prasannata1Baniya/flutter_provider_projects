@@ -31,26 +31,28 @@ class CatalogPage extends StatelessWidget {
           itemBuilder: (ctx,index){
             final product=productsList[index];
 
-        return ListTile(
-          leading: Container(
-            decoration:const  BoxDecoration(
-              color:Colors.purpleAccent,
+        return Card(
+          child: ListTile(
+            leading: Container(
+              decoration:const  BoxDecoration(
+                color:Colors.purpleAccent,
+              ),
             ),
-          ),
-            title: Text(productsList[index].title),
-          subtitle: Text(productsList[index].price as String),
-          trailing: ElevatedButton(
-            style:ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
+              title: Text(product.title),
+            subtitle: Text('\$${product.price.toStringAsFixed(2)}'), //for decimal number
+            //subtitle: Text(product.price as String),
+            trailing: ElevatedButton(
+              style:ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              onPressed: () {
+                Provider.of<CartProvider>(context, listen: false).addItem(product);
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Added to cart!"))
+                    );
+              },
+              child: const Text('Add to Cart'),
             ),
-            onPressed: () {
-              Provider.of<CartProvider>(context, listen: false).addItem(product);
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Added to cart!"))
-                  );
-              //Provider.of<CartProvider>(context).add(productsList[index]);
-            },
-            child: const Text('Add to Cart'),
           ),
         );
       })

@@ -2,10 +2,9 @@
 import 'package:flutter_provider/project-1/counter_app.dart';
 import 'package:flutter_provider/project-2/catalog_page.dart';
 import 'package:flutter_provider/project-3/todo_app.dart';
+import 'package:flutter_provider/project-4/stop_watch.dart';
 
 class ProjectList{
- // final void Function()? onTap;
- //ProjectList({required this.onTap});
 
   List getName(){
     List<String> title=[
@@ -19,7 +18,7 @@ class ProjectList{
 
   List getSubTitle(){
     List<String> projectList=[
-      'Counter aApp',
+      'Counter App',
       'Shopping Cart',
       'Todo App',
       'Stop Watch'
@@ -32,7 +31,7 @@ class ProjectList{
      const CounterApp(),
       const CatalogPage(),
       TodoApp(),
-      Stopwatch(),
+      const StopwatchScreen(),
     ];
     return projectList;
   }
