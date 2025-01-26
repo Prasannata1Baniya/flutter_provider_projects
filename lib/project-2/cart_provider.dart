@@ -11,7 +11,7 @@ class CartProvider with ChangeNotifier {
     if (_items.containsKey(product.id)) {
       // If the item exists, increase its quantity
       _items.update(
-        product.id!,
+        product.id,
             (existingCartItem) => CartItem(
           product: existingCartItem.product,
           quantity: existingCartItem.quantity + 1,
@@ -19,7 +19,7 @@ class CartProvider with ChangeNotifier {
       );
     } else {
       // Add a new item to the cart
-      _items[product.id!] = CartItem(product: product, quantity: 1);
+      _items[product.id] = CartItem(product: product, quantity: 1);
     }
     notifyListeners();
   }
