@@ -9,9 +9,17 @@ class CartProvider with ChangeNotifier {
 
   void addItem(Products product) {
     if (_items.containsKey(product.id)) {
-      _items[product.id]!.quantity++;
+      // If the item exists, increase its quantity
+      _items.update(
+        product.id!,
+            (existingCartItem) => CartItem(
+          product: existingCartItem.product,
+          quantity: existingCartItem.quantity + 1,
+        ),
+      );
     } else {
-      _items[product.id] = CartItem(product: product, quantity: 1);
+      // Add a new item to the cart
+      _items[product.id!] = CartItem(product: product, quantity: 1);
     }
     notifyListeners();
   }
@@ -21,10 +29,18 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clear() {
+    _items.clear();
+    notifyListeners();
+  }
+
   int get itemCount {
-    return _items.values.fold(0, (sum, item) => sum + item.quantity);
+    return _items.length;
+  }
+
+  double get totalPrice {
+    return _items.values
+        .fold(0.0, (sum, item) => sum + (item.product.price * item.quantity));
   }
 }
-
-
 

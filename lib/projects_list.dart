@@ -3,6 +3,7 @@ import 'package:flutter_provider/project-1/counter_app.dart';
 import 'package:flutter_provider/project-2/catalog_page.dart';
 import 'package:flutter_provider/project-3/todo_app.dart';
 import 'package:flutter_provider/project-4/stop_watch.dart';
+import 'package:flutter_provider/project-5/counter_with_history.dart';
 
 class ProjectList{
 
@@ -12,6 +13,7 @@ class ProjectList{
       'Project Two',
       'Project Three',
       'Project four',
+      'Project five'
     ];
     return title;
 }
@@ -22,6 +24,7 @@ class ProjectList{
       'Shopping Cart',
       'Todo App',
       'Stop Watch'
+      'Counter App With History'
     ];
     return projectList;
   }
@@ -32,6 +35,7 @@ class ProjectList{
       const CatalogPage(),
       TodoApp(),
       const StopwatchScreen(),
+      const CounterAppWithHistory(),
     ];
     return projectList;
   }

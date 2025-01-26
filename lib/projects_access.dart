@@ -12,24 +12,26 @@ class ProjectsPage extends StatelessWidget {
    List titleName=projectList.getName();
     List subtitleName=projectList.getSubTitle();
 
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: projects.length,
-          itemBuilder: (context,index){
-        return  GestureDetector(
-          onTap: (){
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>projects[index]));
-          },
-          child: Card(
-            elevation: 5,
-            color: Colors.white,
-            child: ListTile(
-              title: Text(titleName[index]),
-              subtitle: Text(subtitleName[index]),
+    return SafeArea(
+      child: Scaffold(
+        body: ListView.builder(
+          itemCount: projects.length,
+            itemBuilder: (context,index){
+          return  GestureDetector(
+            onTap: (){
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>projects[index]));
+            },
+            child: Card(
+              elevation: 5,
+              color: Colors.white,
+              child: ListTile(
+                title: Text(titleName[index]),
+                subtitle: Text(subtitleName[index]),
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

@@ -7,25 +7,27 @@ class CounterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-         child: Text("${Provider.of<CounterProvider>(context,listen: true).getCount()}"),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+           child: Text("${Provider.of<CounterProvider>(context,listen: true).getCount()}"),
+        ),
+        floatingActionButton:Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FloatingActionButton(
+              onPressed: (){
+                Provider.of<CounterProvider>(context,listen: false).increment();
+              },
+            child:const Icon(Icons.add),),
+            FloatingActionButton(
+              onPressed: (){
+                Provider.of<CounterProvider>(context,listen: false).decrement();
+              },
+              child:const Icon(Icons.remove),),
+          ],
+        ) ,
       ),
-      floatingActionButton:Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            onPressed: (){
-              Provider.of<CounterProvider>(context,listen: false).increment();
-            },
-          child:const Icon(Icons.add),),
-          FloatingActionButton(
-            onPressed: (){
-              Provider.of<CounterProvider>(context,listen: false).decrement();
-            },
-            child:const Icon(Icons.remove),),
-        ],
-      ) ,
     );
 
   }

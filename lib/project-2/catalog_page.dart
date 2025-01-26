@@ -15,47 +15,62 @@ class CatalogPage extends StatelessWidget {
       Products(id: '3', title: 'Product 3', price: 9.99),
     ];
 
-
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Shopping Cart")),
+        title: const Center(child: Text("Shopping Cart App")),
         actions: [
-          InkWell(
-              onTap:()=> Navigator.push(context,
-                  MaterialPageRoute(builder: (context)=>const ShoppingCart())),
-              child:const  Icon(Icons.shopping_bag)),
-        ],
-      ),
-      body: ListView.builder(
-          itemCount: productsList.length,
-          itemBuilder: (ctx,index){
-            final product=productsList[index];
-
-        return Card(
-          child: ListTile(
-            leading: Container(
-              decoration:const  BoxDecoration(
-                color:Colors.purpleAccent,
-              ),
-            ),
-              title: Text(product.title),
-            subtitle: Text('\$${product.price.toStringAsFixed(2)}'), //for decimal number
-            //subtitle: Text(product.price as String),
-            trailing: ElevatedButton(
-              style:ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              onPressed: () {
-                Provider.of<CartProvider>(context, listen: false).addItem(product);
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Added to cart!"))
-                    );
-              },
-              child: const Text('Add to Cart'),
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ShoppingCart()),
             ),
           ),
-        );
-      })
+        ],
+      ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemCount: productsList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemBuilder: (ctx, index) {
+          final product = productsList[index];
+          return Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  product.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text('\$${product.price.toStringAsFixed(2)}'),
+                ElevatedButton(
+                  onPressed: () {
+                    Provider.of<CartProvider>(context, listen: false)
+                        .addItem(product);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("${product.title} added to cart!"),
+                      ),
+                    );
+                  },
+                  child: const Text('Add to Cart'),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
