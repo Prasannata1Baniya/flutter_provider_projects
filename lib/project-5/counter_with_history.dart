@@ -7,8 +7,6 @@ class CounterAppWithHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final counterProvider=Provider.of<CounterHistoryProvider>(context);
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -16,100 +14,103 @@ class CounterAppWithHistory extends StatelessWidget {
           centerTitle: true,
         ),
         body: Consumer<CounterHistoryProvider>(builder: (ctx, counter, child) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('${counter.count}'),
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Current Value: ${counter.count}',
+                  style: const TextStyle(fontSize: 24),
+                ),
+                const SizedBox(height: 20),
 
-              const SizedBox(height: 40),
-              //Increment
-              button("Increment", () {
-                ctx.read<CounterHistoryProvider>().increment();
-              }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("current value:${counter.count}"),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                        itemCount: counter.incrementHistory.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                                "history:${counter.incrementHistory[index]}"),
-                          );
-                        }),
-                  ),
-                ],
-              ),
+                // Increment Button
+                button("Increment", () {
+                  ctx.read<CounterHistoryProvider>().increment();
+                }),
+                const SizedBox(height: 20),
+                historySection(
+                  title: "Increment History",
+                  history: counter.incrementHistory,
+                ),
 
-              const SizedBox(height: 20),
-              //Decrement
-              button("Decrement", () {
-                ctx.read<CounterHistoryProvider>().decrement();
-              }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("current value:${counter.count}"),
-                  Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: counter.decrementHistory.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                                "history:${counter.decrementHistory[index]} "),
-                          );
-                        }),
-                  ),
-                ],
-              ),
+                // Decrement Button
+                button("Decrement", () {
+                  ctx.read<CounterHistoryProvider>().decrement();
+                }),
+                const SizedBox(height: 20),
+                historySection(
+                  title: "Decrement History",
+                  history: counter.decrementHistory,
+                ),
 
-              const SizedBox(height:20),
-              //Reset
-              button("Reset", () {
-                ctx.read<CounterHistoryProvider>().reset();
-              }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("current value:${counter.count}"),
-                  Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: counter.resetHistory.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title:
-                                Text("history:${counter.resetHistory[index]} "),
-                          );
-                        }),
-                  ),
-                ],
-              ),
-            ],
+                // Reset Button
+                button("Reset", () {
+                  ctx.read<CounterHistoryProvider>().reset();
+                }),
+                const SizedBox(height: 20),
+                historySection(
+                  title: "Reset History",
+                  history: counter.resetHistory,
+                ),
+              ],
+            ),
           );
         }),
       ),
     );
   }
 
+  // Reusable Button Widget
   GestureDetector button(String txt, Function() onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 80,
+        height: 50,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(10),
         ),
+        alignment: Alignment.center,
         child: Text(
           txt,
-          style: const TextStyle(color: Colors.white, fontSize: 25),
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
       ),
+    );
+  }
+
+  // Reusable History Section Widget
+  Widget historySection({required String title, required List<int> history}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: history.isNotEmpty ? 150 : 30, // Adjust height dynamically
+          child: history.isNotEmpty
+              ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: history.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: const Icon(Icons.history),
+                title: Text("Value: ${history[index]}"),
+              );
+            },
+          )
+              : const Center(
+            child: Text(
+              "No history available",
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
