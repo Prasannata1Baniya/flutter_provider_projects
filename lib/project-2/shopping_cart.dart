@@ -14,6 +14,8 @@ class ShoppingCart extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Cart"),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
       ),
       body: cartItems.isEmpty
           ? const Center(

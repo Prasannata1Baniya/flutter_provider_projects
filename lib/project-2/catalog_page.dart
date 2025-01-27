@@ -18,6 +18,7 @@ class CatalogPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text("Shopping Cart App")),
+        backgroundColor: Colors.blue,
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart),
@@ -55,6 +56,9 @@ class CatalogPage extends StatelessWidget {
                 ),
                 Text('\$${product.price.toStringAsFixed(2)}'),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: () {
                     Provider.of<CartProvider>(context, listen: false)
                         .addItem(product);

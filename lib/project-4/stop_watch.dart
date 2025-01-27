@@ -13,6 +13,7 @@ class StopwatchScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Stopwatch'),
+          centerTitle: true,
           backgroundColor: Colors.blue,
         ),
         body: Center(
