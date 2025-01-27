@@ -23,8 +23,8 @@ class ProjectList{
       'Counter App',
       'Shopping Cart',
       'Todo App',
-      'Stop Watch'
-      'Counter App With History'
+      'Stop Watch',
+      'Counter App With History',
     ];
     return projectList;
   }
