@@ -26,6 +26,7 @@ class CounterApp extends StatelessWidget {
                 Provider.of<CounterProvider>(context,listen: false).increment();
               },
             child:const Icon(Icons.add),),
+            const SizedBox(width:20),
             FloatingActionButton(
               onPressed: (){
                 Provider.of<CounterProvider>(context,listen: false).decrement();
