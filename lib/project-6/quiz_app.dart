@@ -51,57 +51,69 @@ class _QuizAppState extends State<QuizApp> {
             },
             itemCount: questionsList.length,
             itemBuilder: (BuildContext context, int index) {
-              return ListView(
-                children: [
-                  // Question
-                  Text(questionsList[index].question, style: const TextStyle(color: Colors.black)),
-                  // Answer
-                  for (int i = 0; i < questionsList[index].answer.length; i++)
+              return Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Question
+                    Text(questionsList[index].question,
+                        style: const TextStyle(
+                            color: Colors.black,fontSize: 30,fontWeight: FontWeight.bold)),
+
+                    // Answer
+                    for (int i = 0; i < questionsList[index].answer.length; i++)
+                      GestureDetector(
+                        onTap: () {
+                          click(index);
+                          // Check if the answer is correct and track it
+                          String selectedAnswer = questionsList[index].answer.keys.elementAt(i);
+                          quizProvider.trackRightAnswer(index, selectedAnswer);
+                          if (questionsList[index].answer[selectedAnswer] == true) {
+                            quizProvider.userScore();
+                          }
+                        },
+                        child: Container(
+                          margin:const EdgeInsets.all(20),
+                          padding:const  EdgeInsets.all(15),
+                          height:100,
+                          width:200,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: isClickedList[index] ?
+                            (questionsList[index].answer.values.elementAt(i) ? Colors.green : Colors.red) : Colors.black),
+                          ),
+                          child: Flexible(
+                            child: Text(
+                              questionsList[index].answer.keys.elementAt(i),
+                              style: const TextStyle(color: Colors.black,fontSize:25),
+                              softWrap: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 30),
                     GestureDetector(
                       onTap: () {
-                        click(index);
-                        // Check if the answer is correct and track it
-                        String selectedAnswer = questionsList[index].answer.keys.elementAt(i);
-                        quizProvider.trackRightAnswer(index, selectedAnswer);
-                        if (questionsList[index].answer[selectedAnswer] == true) {
-                          quizProvider.userScore();
-                        }
+                        pageController.nextPage(duration: const Duration(seconds: 1),
+                            curve: Curves.easeIn);
                       },
                       child: Container(
+                        height: 90,
+                        width: 200,
                         decoration: BoxDecoration(
-                          border: Border.all(color: isClickedList[index] ? (questionsList[index].answer.values.elementAt(i) ? Colors.green : Colors.red) : Colors.black),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.black,
                         ),
-                        child: Text(
-                          questionsList[index].answer.keys.elementAt(i),
-                          style: const TextStyle(color: Colors.black),
-                        ),
+                        child: const Text("Next", style: TextStyle(color: Colors.white)),
                       ),
                     ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      // You can add any additional logic here if needed
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.black,
-                      ),
-                      child: const Text("Submit", style: TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                  Text("Total Score: ${quizProvider.score}"),
-                ],
+                    Text("Total Score: ${quizProvider.score}",
+                    style: const TextStyle(fontWeight: FontWeight.bold),),
+                  ],
+                ),
               );
             },
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.easeIn);
-        },
-        child: const Icon(Icons.next_plan_outlined),
       ),
     );
   }
