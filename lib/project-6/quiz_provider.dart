@@ -21,7 +21,8 @@ class QuizProvider extends ChangeNotifier{
   }
 
   void userScore(){
-    scores=_rightAnswer.length++;
+    scores++;
+    //scores=_rightAnswer.length;
     notifyListeners();
   }
 }

@@ -24,7 +24,7 @@ class _QuizAppState extends State<QuizApp> {
       isClicked=!isClicked;
     });
     if(!isClicked){
-      if(questionsList[index].answer.values==[true]) {
+      if(questionsList[index].answer.values.contains(true)) {
         setState(() {
           isClicked=!isClicked;
           widthColor=Colors.green;
@@ -64,90 +64,46 @@ class _QuizAppState extends State<QuizApp> {
             },
             itemCount: questionsList.length,
             itemBuilder: (BuildContext context, int index) {
-              return Expanded(
-                child: ListView(
-                  children: [
+              return ListView(
+                children: [
 
-                    //Question
-                    Text(questionsList[index].question),
+                  //Question
+                  Text(questionsList[index].question),
 
-                    //Answer
-                    for(int i=0;i<questionsList[index].answer.length;i++)
-                      GestureDetector(
-                        onTap: ()=>click(index),
-                        child: Container(
-                            decoration: BoxDecoration(
-                              border:Border.all(
-                                color: widthColor,
-                              ),
-                            ),
-                            child: Text(questionsList[index].answer.keys.elementAt(i),
-                              style: const  TextStyle(color:Colors.white,
-                              ),
-                            )
-                        ),
-                      ),
-
-                    const SizedBox(height: 10,),
+                  //Answer
+                  for(int i=0;i<questionsList[index].answer.length;i++)
                     GestureDetector(
-                      onTap:(){
-                        quizProvider.trackRightAnswer();
-                        quizProvider.userScore();
-                      },
+                      onTap: ()=>click(index),
                       child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.black,
-                        ),
-                        child: const Text("Submit",style: TextStyle(color:Colors.white),),
+                          decoration: BoxDecoration(
+                            border:Border.all(
+                              color: widthColor,
+                            ),
+                          ),
+                          child: Text(questionsList[index].answer.keys.elementAt(i),
+                            style: const  TextStyle(color:Colors.white,
+                            ),
+                          )
                       ),
                     ),
-                    Text("Total Score:${context.watch<QuizProvider>().scores}"),
-                  ],
-                ),
-              );
-              /*
-              ListView.builder(
-                  itemBuilder: (builder,index){
-                    return Column(
-                      children: [
-                        //Question
-                        Text(questionsList[index].question),
 
-                        //Answer
-                        for(int i=0;i<questionsList[index].answer.length;i++)
-                          GestureDetector(
-                            onTap: ()=>click(index),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  border:Border.all(
-                                    color: widthColor,
-                                  ),
-                                ),
-                                child: Text(questionsList[index].answer.keys.toString(),
-                                style: const  TextStyle(color:Colors.white,
-                                ),
-                                )
-                            ),
-                          ),
-                        GestureDetector(
-                          onTap:(){
-                            quizProvider.trackRightAnswer();
-                            quizProvider.userScore();
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.black,
-                            ),
-                            child: const Text("Submit",style: TextStyle(color:Colors.white),),
-                          ),
-                        ),
-                        Text("Total Score:${context.watch<QuizProvider>().scores}"),
-                      ],
-                    );
-                  });
-               */
+                  const SizedBox(height: 10,),
+                  GestureDetector(
+                    onTap:(){
+                      quizProvider.trackRightAnswer();
+                      quizProvider.userScore();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.black,
+                      ),
+                      child: const Text("Submit",style: TextStyle(color:Colors.white),),
+                    ),
+                  ),
+                  Text("Total Score:${context.watch<QuizProvider>().scores}"),
+                ],
+              );
             },
           );
         },
