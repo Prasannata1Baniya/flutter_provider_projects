@@ -14,7 +14,8 @@ class ProjectList{
       'Project Two',
       'Project Three',
       'Project four',
-      'Project five'
+      'Project five',
+      'Project six'
     ];
     return title;
 }

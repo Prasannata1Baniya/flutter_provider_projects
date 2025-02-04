@@ -12,7 +12,6 @@ class QuizProvider extends ChangeNotifier{
   List<dynamic> get rightAnswer=>_rightAnswer;
 
   void trackRightAnswer(){
-
       List<dynamic> rightAnswer = questionList.where((element) {
         var el = element.answer.containsValue(true);
         return el;

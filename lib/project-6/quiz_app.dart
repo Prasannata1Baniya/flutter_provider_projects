@@ -17,10 +17,19 @@ class _QuizAppState extends State<QuizApp> {
   bool isClicked= false;
   Color widthColor=Colors.black;
   PageController pageController=PageController();
-int page=0;
+  int page=0;
+
   void click(int index){
+    setState(() {
+      isClicked=!isClicked;
+    });
     if(!isClicked){
       if(questionsList[index].answer.values==[true]) {
+        setState(() {
+          isClicked=!isClicked;
+          widthColor=Colors.green;
+        });
+      }else{
         setState(() {
           widthColor=Colors.red;
         });
@@ -72,7 +81,7 @@ int page=0;
                                 color: widthColor,
                               ),
                             ),
-                            child: Text(questionsList[index].answer.keys.toString(),
+                            child: Text(questionsList[index].answer.keys.elementAt(i),
                               style: const  TextStyle(color:Colors.white,
                               ),
                             )
