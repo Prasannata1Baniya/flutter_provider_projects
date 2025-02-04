@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_provider/project-6/quiz_provider.dart';
 import 'package:flutter_provider/projects_access.dart';
 import 'package:provider/provider.dart';
 import 'project-1/counter_provider.dart';
@@ -14,6 +15,8 @@ void main() {
     ChangeNotifierProvider(create: (_) => TodoProvider()),
     ChangeNotifierProvider(create: (_) => StopwatchProvider()),
     ChangeNotifierProvider(create: (_) => CounterHistoryProvider()),
+    ChangeNotifierProvider(create: (_) => QuizProvider()),
+
   ], child: const MyApp()));
 }
 

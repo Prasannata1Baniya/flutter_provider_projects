@@ -4,6 +4,7 @@ import 'package:flutter_provider/project-2/catalog_page.dart';
 import 'package:flutter_provider/project-3/todo_app.dart';
 import 'package:flutter_provider/project-4/stop_watch.dart';
 import 'package:flutter_provider/project-5/counter_with_history.dart';
+import 'package:flutter_provider/project-6/quiz_app.dart';
 
 class ProjectList{
 
@@ -25,6 +26,7 @@ class ProjectList{
       'Todo App',
       'Stop Watch',
       'Counter App With History',
+      'Quiz App',
     ];
     return projectList;
   }
@@ -36,6 +38,7 @@ class ProjectList{
       TodoApp(),
       const StopwatchScreen(),
       const CounterAppWithHistory(),
+      const QuizApp(),
     ];
     return projectList;
   }
