@@ -79,27 +79,33 @@ class _QuizAppState extends State<QuizApp> {
                           border: Border.all(color: isClickedList[index] ?
                           (questionsList[index].answer.values.elementAt(i) ? Colors.green : Colors.red) : Colors.black),
                         ),
-                        child: Flexible(
-                          child: Text(
-                            questionsList[index].answer.keys.elementAt(i),
-                            style: const TextStyle(color: Colors.black,fontSize:25),
-                            softWrap: true,
-                          ),
+                        child: Text(
+                          questionsList[index].answer.keys.elementAt(i),
+                          style: const TextStyle(color: Colors.black,fontSize:25),
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
                   const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
-                      pageController.nextPage(duration: const Duration(seconds: 1),
-                          curve: Curves.easeIn);
+                       isClickedList[index]
+                          ? () {
+                         if (index < questionsList.length - 1) {
+                           pageController.nextPage(
+                             duration: const Duration(seconds: 1),
+                             curve: Curves.easeIn,
+                           );
+                         }
+                       } : null;
                     },
                     child: Container(
                       height: 90,
                       width: 200,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.black,
+                        color: isClickedList[page] ? Colors.black : Colors.grey,
                       ),
                       child: const Text("Next", style: TextStyle(color: Colors.white)),
                     ),
