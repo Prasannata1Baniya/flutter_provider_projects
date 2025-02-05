@@ -54,9 +54,11 @@ class _QuizAppState extends State<QuizApp> {
               return ListView(
                 children: [
                   // Question
-                  Text(questionsList[index].question,
-                      style: const TextStyle(
-                          color: Colors.black,fontSize: 30,fontWeight: FontWeight.bold)),
+                  Center(
+                    child: Text(questionsList[index].question,
+                        style: const TextStyle(
+                            color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold)),
+                  ),
 
                   // Answer
                   for (int i = 0; i < questionsList[index].answer.length; i++)
@@ -73,45 +75,49 @@ class _QuizAppState extends State<QuizApp> {
                       child: Container(
                         margin:const EdgeInsets.all(20),
                         padding:const  EdgeInsets.all(15),
-                        height:100,
+                        height:60,
                         width:200,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: isClickedList[index] ?
                           (questionsList[index].answer.values.elementAt(i) ? Colors.green : Colors.red) : Colors.black),
                         ),
                         child: Text(
                           questionsList[index].answer.keys.elementAt(i),
-                          style: const TextStyle(color: Colors.black,fontSize:25),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.black,fontSize:18),
+                         // softWrap: true,
+                          //overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () {
-                       isClickedList[index]
+                    onTap: isClickedList[page]
                           ? () {
-                         if (index < questionsList.length - 1) {
-                           pageController.nextPage(
-                             duration: const Duration(seconds: 1),
-                             curve: Curves.easeIn,
-                           );
-                         }
-                       } : null;
-                    },
+                      if (page < questionsList.length - 1) {
+                        pageController.nextPage(
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                    }: null,
                     child: Container(
-                      height: 90,
+                      margin:const EdgeInsets.all(20),
+                      height: 60,
                       width: 200,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: isClickedList[page] ? Colors.black : Colors.grey,
                       ),
-                      child: const Text("Next", style: TextStyle(color: Colors.white)),
+                      child:const Center(child: Text("Next",
+                          style: TextStyle(color: Colors.white,fontSize: 30))),
                     ),
                   ),
-                  Text("Total Score: ${quizProvider.score}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text("Total Score: ${quizProvider.score}",
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                  ),
                 ],
               );
             },
